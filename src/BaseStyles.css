@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  color: #172b4d;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul, li, ol, hr, h5, h6 {
+  margin: 0;
+}
+
+h1, h2, h3, h4 {
+  margin: 1rem 0 0.5rem;
+  letter-spacing: -1px;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
