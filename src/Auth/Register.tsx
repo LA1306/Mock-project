@@ -1,20 +1,23 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuthContext } from './AuthContext';
+import useApi from '../shared/hooks/api';
 import useForm from '../shared/hooks/form';
 import validateLogin from './utils/validateLogin';
 
 import Input from '../shared/components/Input';
 import Button from '../shared/components/Button';
 
-export default function Login() {
-  const { state } = useLocation();  // nullable
+export default function Register() {
+  const { pathname, state } = useLocation();  // nullable
+  // console.log('> location, state:', pathname, state);
   const auth = useAuthContext();
+  const [postResult, postRequest] = useApi.post('/user');
 
-  const onSubmit = (formValues: any) => {
-    auth.login(formValues, state);   // state = pathname from
-    //console.log('> form ', formValues);
-    //console.log('> location state ', state);
+  const onSubmit = async (formValues: any) => {
+    const response = await postRequest(formValues);
+    auth.login(response, state);
+    // console.log('> onSubmit ', postResult);  // postResult = tham chieu hay gia tri ??
   }
   const formHandle = useForm(onSubmit, validateLogin);
   const { handleChange, handleSubmit, errors } = formHandle;
@@ -24,9 +27,17 @@ export default function Login() {
       <div style={{ width: '100%' }}>
         <FormContainer>
           <h4 style={{ textAlign: 'center' }}>
-            Log in your account
+            {pathname === '/login' ? 'Log in your account' : 'Register your account'}
           </h4>
           <form onSubmit={handleSubmit} noValidate>
+            {pathname !== '/login' && (
+              <Input
+                name='name'
+                placeholder='Your name'
+                handleChange={handleChange}
+                error={errors.userName}
+              />
+            )}
             <Input
               type='email'
               name='email'
@@ -42,10 +53,13 @@ export default function Login() {
               error={errors.password}
             />
             <SubmitButton type='submit'>
-              Log in
+              {pathname === '/login' ? 'Log in' : 'Register'}
             </SubmitButton>
             <HelperText>
-              <Link to='/register'>Don't have an account? Register here</Link>
+              {pathname === '/login'
+                ? <Link to='/register'>Don't have an account? Register here</Link>
+                : <Link to='/login'>Already have an account? Login here</Link>
+              }
             </HelperText>
           </form>
         </FormContainer>

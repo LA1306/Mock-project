@@ -2,7 +2,7 @@
 import { useLocation } from 'react-router-dom';
 import useApi from '../shared/hooks/api';
 import Wireframe from '../shared/components/Wireframe';
-import Navigation from './Navigation';
+import Navigation from '../shared/components/Navigation';
 import RoomList from './RoomList';
 import MoreButton from './MoreButton';
 

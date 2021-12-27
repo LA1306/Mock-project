@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect } from 'react';
 import api from '../utils/api';
 
 function useApiGet(url: string) {
   const [data, setData] = useState<any>(null);  // null = un-fetch
   useEffect(() => {
-    api.get(url).then(res => {
+    api('get', url).then(res => {
       setData(res);
     }).catch(err => {
       console.log(err);
@@ -13,25 +14,26 @@ function useApiGet(url: string) {
   return data;
 };
 
-function useApiPost(url: string) {
+function useApi(method: string, url: string) {
   const [data, setData] = useState<any>(null);  // null = un-fetch
   
-  const apiPost = (body: any) => {
-    api.post(url, body).then(res => {
-      setData(res);
-    }).catch(err => {
-      console.log(err);
-    })
+  const apiRequest = async (body: any) => {
+    const data = await api(method, url, body);
+    setData(data);
+    return data;
   }
-  return { data, apiPost };
+  return [data, apiRequest];
 };
 
-const useApi = {
+const Api = {
   get: useApiGet,
-  post: useApiPost,
+  post: (url: string) => useApi('post', url),
+  put: (url: string) => useApi('put', url),
+  patch: (url: string) => useApi('patch', url),
+  delete: (url: string) => useApi('delete', url),
 }
 
-export default useApi;
+export default Api;
 
 /* don't work
 function useApiGet<T>(url: string) {

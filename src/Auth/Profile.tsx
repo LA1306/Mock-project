@@ -1,22 +1,23 @@
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useAuthContext } from './AuthContext';
 import useForm from '../shared/hooks/form';
-import validateLogin from './utils/validateLogin';
+import useApi from '../shared/hooks/api';
 
 import Input from '../shared/components/Input';
 import Button from '../shared/components/Button';
 
-export default function Login() {
-  const { state } = useLocation();  // nullable
-  const auth = useAuthContext();
+export default function Profile() {
+  const { pathname } = useLocation();  // nullable
+  //console.log('> location ', pathname); // /path/id
+  const { updateUser, user } = useAuthContext();
+  const [updateResult, updateRequest] = useApi.patch(pathname);
 
-  const onSubmit = (formValues: any) => {
-    auth.login(formValues, state);   // state = pathname from
-    //console.log('> form ', formValues);
-    //console.log('> location state ', state);
+  const onSubmit = async (formValues: any) => {
+    const response = await updateRequest(formValues);
+    updateUser(response);
   }
-  const formHandle = useForm(onSubmit, validateLogin);
+  const formHandle = useForm(onSubmit);
   const { handleChange, handleSubmit, errors } = formHandle;
 
   return (
@@ -24,29 +25,24 @@ export default function Login() {
       <div style={{ width: '100%' }}>
         <FormContainer>
           <h4 style={{ textAlign: 'center' }}>
-            Log in your account
+            Edit your profile
           </h4>
           <form onSubmit={handleSubmit} noValidate>
             <Input
-              type='email'
-              name='email'
-              placeholder='Email'
+              name='userName'
+              placeholder={user.name}
               handleChange={handleChange}
-              error={errors.email}
+              error={errors.userName}
             />
             <Input
-              type='password'
-              name='password'
-              placeholder='Password'
+              name='phoneNumber'
+              placeholder='Phone number'
               handleChange={handleChange}
-              error={errors.password}
+              error={errors.phoneNumber}
             />
             <SubmitButton type='submit'>
-              Log in
+              Save
             </SubmitButton>
-            <HelperText>
-              <Link to='/register'>Don't have an account? Register here</Link>
-            </HelperText>
           </form>
         </FormContainer>
       </div>
@@ -71,12 +67,6 @@ const FormContainer = styled.section`
   }
 `
 const SubmitButton = styled(Button)`
-  margin-top: 1rem;
+  margin: 1rem 0;
   width: 100%;
-`
-const HelperText = styled.div`
-  padding: 1rem 0;
-  font-size: 0.8rem;
-  text-align: center;
-  color: #5e6c84;
 `

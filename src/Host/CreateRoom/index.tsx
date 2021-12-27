@@ -11,7 +11,7 @@ import Thumbnail from './Thumbnail';
 import Amenities from './Amenities';
 
 export default function CreateRoom() {
-  const { data, apiPost } = useApi.post('/rooms');
+  const [data, apiPost] = useApi.post('/rooms');
   const onSubmit = (formValues: any) => {
     apiPost(formValues);
     //alert(JSON.stringify(formValues));
@@ -22,26 +22,32 @@ export default function CreateRoom() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <Heading />
-      <Name
-        name='name'
-        label='Name (required)'
-        handleChange={handleChange}
-      />
-      <Description
-        name='description'
-        label='Description'
-        handleChange={handleChange}
-      />
-      <Thumbnail />
-      <Price handleChange={handleChange} />
-      <Address handleChange={handleChange} />
-      <Amenities handleChange={handleChange} />
-    </form>
+    <Container>
+      <form onSubmit={handleSubmit} noValidate>
+        <Heading />
+        <Name
+          name='name'
+          label='Name (required)'
+          handleChange={handleChange}
+        />
+        <Description
+          name='description'
+          label='Description'
+          handleChange={handleChange}
+        />
+        <Thumbnail />
+        <Price handleChange={handleChange} />
+        <Address handleChange={handleChange} />
+        <Amenities handleChange={handleChange} />
+      </form>
+    </Container>
   )
 }
 
+const Container = styled.div`
+  max-width: 640px;
+  margin: auto;
+`
 const Name = styled(OuterInput)`
   margin-top: 1rem;
 `

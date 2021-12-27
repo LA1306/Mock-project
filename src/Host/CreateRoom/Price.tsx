@@ -3,9 +3,9 @@ import OuterInput from '../../shared/components/OuterInput';
 
 export default function Price({ handleChange }: any) {
   return (
-    <Container>
+    <>
       <h3>Price</h3>
-      <GridCont>
+      <Grid>
         <OuterInput
           name='priceWeekday'
           label='Weekday'
@@ -16,16 +16,12 @@ export default function Price({ handleChange }: any) {
           label='Weekend'
           handleChange={handleChange}
         />
-      </GridCont>
-    </Container>
+      </Grid>
+    </>
   )
 }
 
-const Container = styled.div`
-  //padding-top: 1.5rem;
-`
-
-const GridCont = styled.div`
+const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 1rem;

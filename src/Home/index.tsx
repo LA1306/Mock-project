@@ -1,32 +1,38 @@
-import Navigation from "../RoomSearch/Navigation";
-import { color } from "../shared/utils/styles"
+import styled from 'styled-components';
+import Navigation from '../shared/components/Navigation';
+import LocationList from './LocationList';
+import { useMediaQuery } from 'react-responsive'
 
 export default function Home() {
-
-  const colorPalette = (color: any) => {
-    const colorList = [];
-    for (let key in color) {
-      colorList.push(
-        <div key={key} style={{ background: color[key] }}>
-          {key + ': ' + color[key]}
-        </div>
-      )
-    }
-    return colorList;
-  }
-
+  const isMobile = useMediaQuery({ maxWidth: 600 })
   return (
     <>
       <Navigation />
-      {colorPalette(color)}
-      <h1>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</h1>
-      <h2>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</h2>
-      <h3>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</h3>
-      <h4>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</h4>
-      <h5>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</h5>
-      <h6>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</h6>
-      <div>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</div>
-      <p>Mayli Homestay Đà Lạt - Phòng đôi Garden view - Khu biệt thự độc lập - 5p tới trung tâm</p>
+      <Container>
+        <section>
+          {isMobile && <Banner src="/image/banner-crop.png" alt="banner"/>}
+          {!isMobile && <Banner src="/image/banner.png" alt="banner"/>}
+        </section>
+        <section>
+          <h1>Địa điểm nổi bật</h1>
+          <p>Đặt khách sạn, homestay, trải nghiệm và nhiều hơn</p>
+          <LocationList />
+        </section>
+      </Container>
     </>
   )
 }
+
+const Container = styled.main`
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+`
+const Banner = styled.img`
+  width: 100%;
+  margin: 2rem 0 1rem;
+  border-radius: 10px;
+  @media (max-width: 600px) {
+    margin: 0;
+  }
+`

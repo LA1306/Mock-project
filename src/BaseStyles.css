@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul, li, ol, hr, h5, h6 {
+ul, li, ol, hr, h5, h6, p {
   margin: 0;
 }
 
@@ -24,6 +24,10 @@ button, input, optgroup, select, textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+td {
+  padding: 0 0.5rem;
 }
 
 * {

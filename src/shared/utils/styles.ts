@@ -34,8 +34,8 @@ export const font = {
 };
 
 export const sizes = {
-  appNavBarLeftWidth: 64,
-  secondarySideBarWidth: 230,
+  topNav: 70,
+  sideNav: 240,
   minViewportWidth: 1000,
 };
 

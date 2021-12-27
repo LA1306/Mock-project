@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 interface AuthType {
   user: any;
-  signIn: (formValues: any, navigateTo: string) => void;
-  signOut: () => void;
+  login: (userData: any, navigateTo: string) => void;
+  updateUser: (userData: any) => void;
+  logout: () => void;
 }
 // a postfix ! removes null and undefined from the type
 const AuthContext = React.createContext<AuthType>(null!);
@@ -13,15 +14,21 @@ export default function ContextProvider(props: any) {
   const navigate = useNavigate();
   const [user, setUser] = React.useState<any>(null);
 
-  const signIn = (formValues: any, navigateTo: string) => {
-    setUser(formValues);
+  const login = (userData: any, navigateTo: string) => {
+    setUser(userData);
     navigate(navigateTo || '/', { replace: true });
   };
-  const signOut = () => {
+
+  const updateUser = (userData: any) => {
+    setUser(userData);
+  };
+
+  const logout = () => {
     setUser(null);
     navigate('/');
   };
-  const value = { user, signIn, signOut };
+
+  const value = { user, login, updateUser, logout };
 
   return (
     <AuthContext.Provider value={value}>

@@ -1,45 +1,22 @@
-import styled from 'styled-components';
-/* import { useParams } from 'react-router-dom';
-import useApi from '../shared/hooks/api';
-import { RoomType } from '../shared/types/Room'; */
-import CreateRoom from './CreateRoom';
-import Wireframe from '../shared/components/Wireframe';
-import Navigation from '../RoomSearch/Navigation';
+import styled from 'styled-components'
+import { Outlet } from 'react-router-dom'
+import Navigation from '../shared/components/Navigation'
+import SideNavigation from './SideNavigation'
 
 export default function Host() {
-  /* const { id } = useParams();
-  const data: RoomType = useApi.get(`/search/${id}`);
-  if (!data) return (<div>Loading...</div>) */
-
   return (
-    <Container>
-      <SideNav>
-        <Wireframe name='Side nav' height='100vh' />
-      </SideNav>
+    <>
+      <Navigation />
+      <SideNavigation />
       <Board>
-        <Navigation />
-        <BoardCont>
-          <CreateRoom />
-        </BoardCont>
+        <Outlet />
       </Board>
-    </Container>
+    </>
   )
 }
 
-const Container = styled.div`
-  display: flex;
-`
-const Board = styled.div`
-  flex-grow: 1;
-`
-const BoardCont = styled.main`
-  margin: auto;
-  max-width: 640px;
-`
-const SideNav = styled.aside`
-  flex-basis: 240px;
-  flex-shrink: 0;
-  @media (max-width: 800px) {
-    display: none;
+const Board = styled.main`
+  @media (min-width: 900px) {
+    padding-left: 240px;
   }
 `
