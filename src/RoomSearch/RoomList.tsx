@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RoomType } from '../shared/types/Room';
+import { imageUrl } from '../shared/utils/luxstay';
 
 type Props = { data: RoomType[] }
 
@@ -10,7 +11,7 @@ export default function RoomList({ data }: Props) {
       {data.map(room => (
         <RoomCard key={room.id}>
           <Link to={`/room/${room.id}`}>
-            <Image src={'https://cdn.luxstay.com/' + room.cover_image} />
+            <Image src={imageUrl(room.cover_image)} />
             <Title>{room.name}</Title>
             <Price>{room.price.weekday}</Price>
           </Link>
@@ -21,8 +22,6 @@ export default function RoomList({ data }: Props) {
 }
 
 const GridList = styled.section`
-  max-width: 1400px;
-  margin: auto;
   display: grid;
   //grid-gap: 0.75rem;  // gap ko co xung quanh Card
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:4000';
+const baseUrl = 'http://localhost:5000/api';
 
 /* const apiGet = async (url: string) => {
   url = baseUrl + url;
@@ -22,7 +22,7 @@ async function api(method: string, url: string, body?: any) {
     return data;
   }
   catch(err) {
-    console.log(err);
+    alert(err);
     return null;
   }
 }

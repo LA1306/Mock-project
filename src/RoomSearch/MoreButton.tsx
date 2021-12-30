@@ -6,13 +6,12 @@ import styled from "styled-components";
 
 export default function MoreButton() {
   // let page = 0;   // re-render -> reset 0
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParam, setSearchParam] = useSearchParams();
   const page = React.useRef(1);
 
   const handleClick = (e: any) => {
     page.current++;
-    setSearchParam(`_limit=${page.current * 8}`);  // trigger useLocation()
+    setSearchParam(`limit=${page.current * 8}`);  // trigger useLocation()
   }
 
   return (

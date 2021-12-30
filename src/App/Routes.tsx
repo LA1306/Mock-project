@@ -25,7 +25,7 @@ export default function AppRoutes() {
           <Route path="register" element={<Register />} />
 
           {/* <Route element={<ProtectedRoute />}> */}
-            <Route path="user/:id" element={<Profile />} />
+            <Route path="users/:id" element={<Profile />} />
             <Route path="host" element={<Host />}>
               <Route index element={<Listing />} />
               <Route path="reservation" element={<Reservation />} />

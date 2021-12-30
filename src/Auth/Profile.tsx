@@ -29,8 +29,8 @@ export default function Profile() {
           </h4>
           <form onSubmit={handleSubmit} noValidate>
             <Input
-              name='userName'
-              placeholder={user.name}
+              name='name'
+              placeholder={user?.name}
               handleChange={handleChange}
               error={errors.userName}
             />

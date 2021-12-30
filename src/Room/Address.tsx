@@ -7,9 +7,9 @@ export default function Address({ data }: Props) {
     <div>
       <h3>Địa chỉ</h3>
       <div style={{ paddingBottom: '1rem' }}>
-        {`${data.ward.name}, ${data.district.name}, ${data.province.name}`}
+        {data.detail}
       </div>
-      <img src="/map.jpg" alt="map" width='100%' />
+      <img src="/image/map.jpg" alt="map" width='100%' />
     </div>
   )
 }

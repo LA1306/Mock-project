@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface AuthType {
-  user: any;
+  user?: { [key: string]: string };
   login: (userData: any, navigateTo: string) => void;
   updateUser: (userData: any) => void;
   logout: () => void;

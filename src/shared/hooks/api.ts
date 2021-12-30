@@ -5,7 +5,7 @@ import api from '../utils/api';
 function useApiGet(url: string) {
   const [data, setData] = useState<any>(null);  // null = un-fetch
   useEffect(() => {
-    api('get', url).then(res => {
+    api('GET', url).then(res => {
       setData(res);
     }).catch(err => {
       console.log(err);
@@ -27,10 +27,10 @@ function useApi(method: string, url: string) {
 
 const Api = {
   get: useApiGet,
-  post: (url: string) => useApi('post', url),
-  put: (url: string) => useApi('put', url),
-  patch: (url: string) => useApi('patch', url),
-  delete: (url: string) => useApi('delete', url),
+  post: (url: string) => useApi('POST', url),
+  put: (url: string) => useApi('PUT', url),
+  patch: (url: string) => useApi('PATCH', url),
+  delete: (url: string) => useApi('DELETE', url),
 }
 
 export default Api;

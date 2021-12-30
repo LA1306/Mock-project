@@ -15,7 +15,7 @@ export default function Home() {
         </section>
         <section>
           <h1>Địa điểm nổi bật</h1>
-          <p>Đặt khách sạn, homestay, trải nghiệm và nhiều hơn</p>
+          <div>Đặt khách sạn, homestay, trải nghiệm và nhiều hơn</div>
           <LocationList />
         </section>
       </Container>

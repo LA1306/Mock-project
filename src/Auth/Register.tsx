@@ -12,7 +12,7 @@ export default function Register() {
   const { pathname, state } = useLocation();  // nullable
   // console.log('> location, state:', pathname, state);
   const auth = useAuthContext();
-  const [postResult, postRequest] = useApi.post('/user');
+  const [postResult, postRequest] = useApi.post('/users');
 
   const onSubmit = async (formValues: any) => {
     const response = await postRequest(formValues);

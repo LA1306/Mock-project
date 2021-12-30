@@ -7,18 +7,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul, li, ol, hr, h5, h6, p {
-  margin: 0;
+* {
+  box-sizing: border-box;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
   margin: 1rem 0 0.5rem;
   letter-spacing: -1px;
+}
+
+h4 {
+  margin: 1rem 0 0.5rem;
 }
 
 button, input, optgroup, select, textarea {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 600;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid lightgray;
 }
 
 a {
@@ -28,8 +37,4 @@ a {
 
 td {
   padding: 0 0.5rem;
-}
-
-* {
-  box-sizing: border-box;
 }

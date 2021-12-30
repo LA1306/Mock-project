@@ -2,15 +2,15 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import useApi from '../shared/hooks/api';
 import { RoomType } from '../shared/types/Room';
-import Wireframe from '../shared/components/Wireframe';
 
 import Cover from './Cover';
 import Amenities from './Amenities';
 import Address from './Address';
+import Booking from './Booking';
 
 export default function Room() {
   const { id } = useParams();
-  const data: RoomType = useApi.get(`/search/${id}`);
+  const data: RoomType = useApi.get(`/rooms/${id}`);
   if (!data) return (<div>Loading...</div>)
 
   return (
@@ -23,9 +23,9 @@ export default function Room() {
           <Amenities />
           <Address data={data.address} />
         </RoomInfo>
-        <BookNow>
-          <Wireframe name='Order' height='280px' data={data.price.weekday} />
-        </BookNow>
+        <RoomBooking>
+          <Booking roomData={data} />
+        </RoomBooking>
       </Container>
     </>
   )
@@ -34,16 +34,17 @@ export default function Room() {
 const Container = styled.main`
   display: flex;
   margin: auto;
-  padding: 1rem;
   max-width: 1100px;
-  color: black;
+  //color: black;
 `
 const RoomInfo = styled.section`
   flex-grow: 1;
+  padding: 1rem;
 `
-const BookNow = styled.aside`
-  flex-basis: 300px;
+const RoomBooking = styled.aside`
+  //flex-basis: 360px;
   flex-shrink: 0;
+  padding: 3rem 1rem;
   @media (max-width: 800px) {
     display: none;
   }

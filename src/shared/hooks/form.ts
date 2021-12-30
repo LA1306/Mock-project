@@ -36,5 +36,5 @@ export default function useForm(
     onSubmit(values);
   };
 
-  return { handleSubmit, handleChange, errors };
+  return { values, handleSubmit, handleChange, errors };
 };

@@ -4,7 +4,7 @@ import { User } from './User';
 export type RoomType = {
   id: number,
   address: AddressType,
-  business_model: string,
+  /* business_model: string, */
   name: string,
   description: string,
   cover_image: string,
@@ -14,7 +14,7 @@ export type RoomType = {
     id: number,
     url: string,
   }[],
-  room_information: {
+  /* room_information: {
     futon: string,
     sofa_bed: string,
     double_bed: number,
@@ -27,11 +27,12 @@ export type RoomType = {
     total_of_bedroom: number,
     total_of_bathroom: number,
     super_king_size_bed: string,
-  },
+  }, */
   amenities: number[],
   price: {
     max_guest: number,
     weekday: number,
     weekend: number,
   },
+  status: string,
 }

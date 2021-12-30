@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { imageUrl } from '../shared/utils/luxstay';
 
 type Props = {
   images: {
@@ -11,7 +12,7 @@ export default function Cover({ images }: Props) {
   return (
     <CoverImageList>
       {images.map(image => (
-        <CoverImage src={'https://cdn.luxstay.com' + image.url} alt='cover' />
+        <CoverImage key={image.id} src={imageUrl(image.url)} alt='cover' />
       ))}
     </CoverImageList>
   )

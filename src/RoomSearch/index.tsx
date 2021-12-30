@@ -1,26 +1,41 @@
-//import styled from 'styled-components';
+import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import useApi from '../shared/hooks/api';
-import Wireframe from '../shared/components/Wireframe';
 import Navigation from '../shared/components/Navigation';
 import RoomList from './RoomList';
+import Filter from './Filter';
 import MoreButton from './MoreButton';
 
 export default function RoomSearch() {
   const { search } = useLocation();   // return '?abc' and trigger re-render
-  const data = useApi.get(`/search?${search.substring(1)}&_limit=8`);
+  const data = useApi.get(`/rooms?${search.substring(1)}`);
 
   if (!data) return (<div>Loading...</div>);
-  if (!Object.keys(data).length) return (<div>Empty!</div>)
+  if (!data.totalResults) return (<div>Empty!</div>)
 
   return (
     <>
       <Navigation />
-      <Wireframe name='Filter' height='60px' />
-
-      <h4>Danh sách phòng tại Đà Lạt</h4>
-      <RoomList data={data} />
-      <MoreButton />
+      <Contaniner>
+        <Heading>
+          <h2>{`${data.totalResults} phòng tại Luxstay`}</h2>
+          <Filter />
+        </Heading>
+        <RoomList data={data.results} />
+        <MoreButton />
+      </Contaniner>
     </>
   )
 }
+
+const Contaniner = styled.main`
+  max-width: 1400px;
+  margin: auto;
+`
+const Heading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+`
