@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useAuthContext } from '../../Auth/AuthContext'
+import { useAppContext } from '../../App/Context'
 import { color } from '../../shared/utils/styles'
 import { BsSearch } from "react-icons/bs"
 
 export default function Navigation() {
-  const { user } = useAuthContext();
+  const { user } = useAppContext();
   return (
     <header>
       <Container>
@@ -24,7 +24,7 @@ export default function Navigation() {
             <Link to='/search' style={{ padding: 10 }}>Search</Link>
             <Link to='/host' style={{ padding: 10 }}>Host</Link>
             {!user && <Link to='/login' style={{ padding: 10 }}>Login</Link>}
-            {user && <Link to={`/user/${user.id}`} style={{ padding: 10 }}>{user.name}</Link>}
+            {user && <Link to={`/users/${user.id}`} style={{ padding: 10 }}>{user.name}</Link>}
           </nav>
         </NavContainer>
       </Container>

@@ -1,22 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
-import { useAuthContext } from './AuthContext';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppContext } from '../App/Context';
 import useApi from '../shared/hooks/api';
 import useForm from '../shared/hooks/form';
-import validateLogin from './utils/validateLogin';
+import { storeAuthToken } from '../shared/utils/authToken';
 
+import validateLogin from './utils/validateLogin';
 import Input from '../shared/components/Input';
 import Button from '../shared/components/Button';
 
 export default function Register() {
+  const navigate = useNavigate();
   const { pathname, state } = useLocation();  // nullable
-  // console.log('> location, state:', pathname, state);
-  const auth = useAuthContext();
-  const [postResult, postRequest] = useApi.post('/users');
+  const { setUserData } = useAppContext();
+  const [postResult, postRequest] = useApi.post('/auth/register');
 
   const onSubmit = async (formValues: any) => {
-    const response = await postRequest(formValues);
-    auth.login(response, state);
+    const { data, error } = await postRequest(formValues);
+    if (data) {
+      storeAuthToken(data.token);
+      setUserData(data.user);
+      navigate(state || '/', { replace: true });
+    }
     // console.log('> onSubmit ', postResult);  // postResult = tham chieu hay gia tri ??
   }
   const formHandle = useForm(onSubmit, validateLogin);

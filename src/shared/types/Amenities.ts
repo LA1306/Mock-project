@@ -1,4 +1,4 @@
-export type Amenities = {
+export type AmenitiesType = {
   id: number;
   categoryId: number;
   name: string;

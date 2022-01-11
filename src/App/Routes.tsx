@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import ContextProvider from "../Auth/AuthContext"
+import ContextProvider from "./Context"
 import ProtectedRoute from "../Auth/ProtectedRoute"
 import Home from "../Home"
 import RoomSearch from "../RoomSearch"

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { useAuthContext } from './AuthContext';
+import { useAppContext } from '../App/Context';
 import useForm from '../shared/hooks/form';
 import useApi from '../shared/hooks/api';
 
@@ -9,13 +10,13 @@ import Button from '../shared/components/Button';
 
 export default function Profile() {
   const { pathname } = useLocation();  // nullable
-  //console.log('> location ', pathname); // /path/id
-  const { updateUser, user } = useAuthContext();
+  const { user, setUserData } = useAppContext();
   const [updateResult, updateRequest] = useApi.patch(pathname);
+  //console.log('> location ', pathname); // /path/id
 
   const onSubmit = async (formValues: any) => {
-    const response = await updateRequest(formValues);
-    updateUser(response);
+    const { data } = await updateRequest(formValues);
+    setUserData(data);
   }
   const formHandle = useForm(onSubmit);
   const { handleChange, handleSubmit, errors } = formHandle;

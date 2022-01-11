@@ -10,7 +10,8 @@ import Booking from './Booking';
 
 export default function Room() {
   const { id } = useParams();
-  const data: RoomType = useApi.get(`/rooms/${id}`);
+  const response = useApi.get(`/rooms/${id}`);
+  const data = response.data as RoomType;
   if (!data) return (<div>Loading...</div>)
 
   return (

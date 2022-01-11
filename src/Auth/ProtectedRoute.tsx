@@ -1,8 +1,8 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import { useAuthContext } from "./AuthContext";
+import { useAppContext } from "../App/Context";
 
 export default function ProtectedRoute() {
-  let { user } = useAuthContext();
+  let { user } = useAppContext();
   let { pathname } = useLocation();
   //console.log('Route through ProtectedRoute');
 

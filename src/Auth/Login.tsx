@@ -1,20 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
-import { useAuthContext } from './AuthContext';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppContext } from '../App/Context';
+import useApi from '../shared/hooks/api';
 import useForm from '../shared/hooks/form';
-import validateLogin from './utils/validateLogin';
+import { storeAuthToken } from '../shared/utils/authToken';
 
+import validateLogin from './utils/validateLogin';
 import Input from '../shared/components/Input';
 import Button from '../shared/components/Button';
 
 export default function Login() {
-  const { state } = useLocation();  // nullable
-  const auth = useAuthContext();
+  const navigate = useNavigate();
+  const { state } = useLocation();  // nullable, url redirect after login
+  const { setUserData } = useAppContext();
+  const [postResult, postRequest] = useApi.post('/auth/login');
 
-  const onSubmit = (formValues: any) => {
-    auth.login(formValues, state);   // state = pathname from
-    //console.log('> form ', formValues);
-    //console.log('> location state ', state);
+  const onSubmit = async (formValues: any) => {
+    const { data, error } = await postRequest(formValues);
+    if (data) {
+      storeAuthToken(data.token);
+      setUserData(data.user);
+      navigate(state || '/', { replace: true });
+    }
   }
   const formHandle = useForm(onSubmit, validateLogin);
   const { handleChange, handleSubmit, errors } = formHandle;

@@ -1,21 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect } from 'react';
 import api from '../utils/api';
+import { ResponseType } from "../types/Api";
 
-function useApiGet(url: string) {
-  const [data, setData] = useState<any>(null);  // null = un-fetch
+function useQuery(url: string) {
+  const [data, setData] = useState<ResponseType>({});
   useEffect(() => {
-    api('GET', url).then(res => {
-      setData(res);
-    }).catch(err => {
-      console.log(err);
-    })
+    api('GET', url).then(res => setData(res));
   }, [url]);
   return data;
 };
 
-function useApi(method: string, url: string) {
-  const [data, setData] = useState<any>(null);  // null = un-fetch
+function useMutation(method: string, url: string) {
+  const [data, setData] = useState<any>({});
   
   const apiRequest = async (body: any) => {
     const data = await api(method, url, body);
@@ -25,15 +22,14 @@ function useApi(method: string, url: string) {
   return [data, apiRequest];
 };
 
-const Api = {
-  get: useApiGet,
-  post: (url: string) => useApi('POST', url),
-  put: (url: string) => useApi('PUT', url),
-  patch: (url: string) => useApi('PATCH', url),
-  delete: (url: string) => useApi('DELETE', url),
+const useApi = {
+  get: useQuery,
+  post: (url: string) => useMutation('POST', url),
+  patch: (url: string) => useMutation('PATCH', url),
+  delete: (url: string) => useMutation('DELETE', url),
 }
 
-export default Api;
+export default useApi;
 
 /* don't work
 function useApiGet<T>(url: string) {

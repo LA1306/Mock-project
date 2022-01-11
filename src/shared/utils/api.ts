@@ -1,36 +1,33 @@
+import { getStoredAuthToken } from "./authToken";
+import { ResponseType } from "../types/Api";
+
 const baseUrl = 'http://localhost:5000/api';
 
-/* const apiGet = async (url: string) => {
+async function fetchApi(method: string, url: string, body?: any) {
   url = baseUrl + url;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
-} */
-
-async function api(method: string, url: string, body?: any) {
-  url = baseUrl + url;
-  const options = {
+  const token = getStoredAuthToken();
+  const options: any = {
     method: method,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: token ? `Bearer ${token}` : undefined,
     },
     body: body ? JSON.stringify(body) : undefined,
   }
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    return data;
+    return data as ResponseType;
   }
-  catch(err) {
-    alert(err);
-    return null;
+  catch(error) {
+    return error as ResponseType;
   }
 }
 
-/* const Api = {
-  get: apiGet,
-  post: (url: string, body: any) => api('post', url, body),
-  put: (url: string, body: any) => api('put', url, body),
-} */
+export const api = {
+  get: (url: string) => fetchApi('GET', url),
+  post: (url: string, body: any) => fetchApi('POST', url, body),
+  patch: (url: string, body: any) => fetchApi('PATCH', url, body),
+}
 
-export default api;
+export default fetchApi;

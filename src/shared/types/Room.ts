@@ -1,5 +1,5 @@
 import { AddressType } from './Address';
-import { User } from './User';
+import { UserType } from './User';
 
 export type RoomType = {
   id: number,
@@ -9,7 +9,7 @@ export type RoomType = {
   description: string,
   cover_image: string,
   host_id: number,
-  host: User,
+  host: UserType,
   images: {
     id: number,
     url: string,

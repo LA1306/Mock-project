@@ -50,10 +50,10 @@ const HorizontalList = styled.div`
   }
 `
 const LocationImage = styled.div<{ imgSrc: string }>`
-  min-width: 240px;
-  height: 300px;
+  min-width: 220px;
+  height: 260px;
   margin-right: 1rem;
-  padding: 240px 0.75rem 1rem;
+  padding: 200px 0.75rem 0.5rem;
   color: white;
   border-radius: 5px;
   background-image: url(${p => p.imgSrc});

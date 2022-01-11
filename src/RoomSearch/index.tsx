@@ -8,27 +8,25 @@ import MoreButton from './MoreButton';
 
 export default function RoomSearch() {
   const { search } = useLocation();   // return '?abc' and trigger re-render
-  const data = useApi.get(`/rooms?${search.substring(1)}`);
-
-  if (!data) return (<div>Loading...</div>);
-  if (!data.totalResults) return (<div>Empty!</div>)
+  const response = useApi.get(`/rooms${search}`);
+  if (!response.total) return <div>Loading...</div>
 
   return (
     <>
       <Navigation />
-      <Contaniner>
+      <Container>
         <Heading>
-          <h2>{`${data.totalResults} phòng tại Luxstay`}</h2>
+          <h2>{`${response.total} phòng tại Luxstay`}</h2>
           <Filter />
         </Heading>
-        <RoomList data={data.results} />
+        <RoomList data={response.data} />
         <MoreButton />
-      </Contaniner>
+      </Container>
     </>
   )
 }
 
-const Contaniner = styled.main`
+const Container = styled.main`
   max-width: 1400px;
   margin: auto;
 `

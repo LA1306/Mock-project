@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from 'react';
 import styled from 'styled-components';
-import { useAuthContext } from '../Auth/AuthContext';
+import { useAppContext } from '../App/Context';
 import useForm from '../shared/hooks/form';
 import useApi from '../shared/hooks/api';
 import { color } from '../shared/utils/styles';
@@ -11,26 +12,35 @@ import Button from '../shared/components/Button';
 type Props = { roomData: RoomType };
 
 export default function Booking({ roomData }: Props) {
-  const [dateQuantity, setDateQuantity] = useState(1);
-  const { user } = useAuthContext();
+  const [dateQuantity, setDateQuantity] = React.useState(1);
+  const { user } = useAppContext();
   const [postResult, postRequest] = useApi.post('/reservation');
 
   const onSubmit = async (formValues: any) => {
+    //alert(JSON.stringify(formValues));
     const bookingData = {
       ...formValues,
+      clientId: user?.id,
+      clientName: formValues.clientName || user?.name,
       hostId: roomData.host_id,
       roomId: roomData.id,
       roomName: roomData.name,
-      roomAddress: roomData.address.detail,
+      roomAddress: `${roomData.address.ward}, ${roomData.address.district}`,
+      roomCoverImage: roomData.cover_image,
     };
     const response = await postRequest(bookingData);
-    alert(JSON.stringify(response));
+    if (response.data) {
+      alert('Book successful!');
+    }
+    else {
+      alert('Something wrong!');
+    }
   }
   const formHandle = useForm(onSubmit);
   const { values, handleChange, handleSubmit, errors } = formHandle;
   const price = roomData.price.weekday;
   
-  useEffect(() => {
+  React.useEffect(() => {
     if (values.dateFrom && values.dateTo) {
       const to: any = new Date(values.dateTo);
       const from: any = new Date(values.dateFrom);

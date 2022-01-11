@@ -24,7 +24,7 @@ export default function Home() {
 }
 
 const Container = styled.main`
-  max-width: 1200px;
+  max-width: 1100px;
   margin: auto;
   padding: 1rem;
 `

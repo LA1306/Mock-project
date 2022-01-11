@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
 import useForm from '../../shared/hooks/form';
 import useApi from '../../shared/hooks/api';
@@ -11,14 +12,14 @@ import Thumbnail from './Thumbnail';
 import Amenities from './Amenities';
 
 export default function CreateRoom() {
-  const [data, apiPost] = useApi.post('/rooms');
+  const [postResult, postRequest] = useApi.post('/rooms');
   const onSubmit = (formValues: any) => {
-    apiPost(formValues);
-    //alert(JSON.stringify(formValues));
+    //postRequest(formValues);
+    alert(JSON.stringify(formValues));
   }
   const { handleSubmit, handleChange } = useForm(onSubmit);
-  if (data) {
-    return <div>Submited: {JSON.stringify(data)}</div>
+  if (postResult.data) {
+    return <div>Submited: {JSON.stringify(postResult)}</div>
   }
 
   return (
